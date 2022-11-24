@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet" >
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js" ></script>
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"  referrerpolicy="no-referrer"></script>
+
+<script>
+    window.onload = function () {
+        var clipboard = new ClipboardJS('#copy-button');
+        clipboard.on('success', function (e) {
+            console.log(e);
+        });
+        clipboard.on('error', function (e) {
+            console.log(e);
+        });
+    }
+</script>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Get Token</title>
+</head>
+<body>
+<div class="card mx-auto" style="width: 22rem;">
+    <img src="https://mirrors.sustech.edu.cn/site/sustech-online/img/facility/buildings/College_of_Science_Building_of_Southern_University_of_Science_and_Technology_202205.jpg"
+         class="card-img-top" alt="...">
+    <h4 class="card-title">CRA Connect，QQ加群验证服务</h4>
+    <div class="card-body">
+    {% if userinfo %}
+        <p class="card-text">You've been login as: {{ userinfo['name'] }}, {{ userinfo['preferred_username'] }}</p>
+        {% if token %}
+            <h5 class="card-text">请复制以下Token至加群验证页：</h5>
+        <p class="card-text" id="token"><code>{{ token }}</code></p>
+        <button class="btn btn btn-outline-primary" id="copy-button" data-clipboard-target="#token">Copy</button>
+        <a href="/service/qqv/" class="btn btn-secondary">点此输入其他的QQ号</a>
+        {% else %}
+        <a href="/service/qqv/" class="btn btn-primary">点此输入QQ号</a>
+        {% endif %}
+    {% endif %}
+
+
+        <div class="col-md-12 text-center">
+        {% if userinfo %}
+        <a href="/service/qqv/logout" class="btn btn-outline-danger">logout</a>
+        {% else %}
+        <a href="/service/qqv/login" class="btn btn-outline-success">login via CRA SSO / CAS</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
