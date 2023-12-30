@@ -24,19 +24,19 @@
 </head>
 <body>
 <div class="card mx-auto" style="width: 22rem;">
-    <img src="https://mirrors.sustech.edu.cn/site/sustech-online/img/facility/buildings/College_of_Science_Building_of_Southern_University_of_Science_and_Technology_202205.jpg"
+    <img src="https://mirrors.sustech.edu.cn/site/mirrors/craconnect.jpg"
          class="card-img-top" alt="...">
     <h4 class="card-title">CRA Connect，QQ加群验证服务</h4>
     <div class="card-body">
     {% if userinfo %}
-        <p class="card-text">You've been login as: {{ userinfo['name'] }}, {{ userinfo['preferred_username'] }}</p>
+        <p class="card-text">You've been login as: {{ userinfo['name'] }}, {{ userinfo['sid'] }}</p>
         {% if token %}
-            <h5 class="card-text">请复制以下Token至加群验证页：</h5>
+            <h5 class="card-text">请复制以下验证码至加群验证页：</h5>
         <p class="card-text" id="token"><code>{{ token }}</code></p>
         <button class="btn btn btn-outline-primary" id="copy-button" data-clipboard-target="#token">Copy</button>
-        <a href="/service/qqv/" class="btn btn-secondary">点此输入其他的QQ号</a>
+        <a href="/service/qqv/" class="btn btn-secondary">输入其他的QQ号</a>
         {% else %}
-        <a href="/service/qqv/" class="btn btn-primary">点此输入QQ号</a>
+        <a href="/service/qqv/" class="btn btn-primary">输入QQ号</a>
         {% endif %}
     {% endif %}
 
@@ -45,7 +45,7 @@
         {% if userinfo %}
         <a href="/service/qqv/logout" class="btn btn-outline-danger">logout</a>
         {% else %}
-        <a href="/service/qqv/login" class="btn btn-outline-success">login via CRA SSO / CAS</a>
+        <a href="/service/qqv/login" class="btn btn-outline-success">login via CAS</a>
         {% endif %}
         </div>
     </div>

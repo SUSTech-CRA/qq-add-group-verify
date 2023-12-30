@@ -12,40 +12,43 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Login page</title>
+    <title>CRA QQ Group Connect</title>
 </head>
 <body>
 <div class="card mx-auto" style="width: 22rem;">
-    <img src="https://mirrors.sustech.edu.cn/site/sustech-online/img/facility/buildings/College_of_Science_Building_of_Southern_University_of_Science_and_Technology_202205.jpg"
+    <img src="https://mirrors.sustech.edu.cn/site/mirrors/craconnect.jpg"
          class="card-img-top" alt="...">
     <h4 class="card-title">CRA Connect，QQ加群验证服务</h4>
     {% if userinfo %}
-        <p class="card-text">You've been login as: {{ userinfo['name'] }}, {{ userinfo['preferred_username'] }}</p>
+        <p class="card-text">You've been login as: {{ userinfo['name'] }}, {{ userinfo['sid'] }}</p>
         <form method="POST" action="/service/qqv/token">
-        <div class="col-md-12 text-center">
-            {{ form.csrf_token }}
-
-            <div class="form-group">
-                <h5 class="card-text">在下方输入您的QQ号：</h5>
-                <div class="input-group mb-3">
-                <span class="input-group-text" >QQ号：</span>
-                {{ form.name (class_="form-control",placeholder_="QQ") }}
+            <div class="col-md-12 text-center">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    <h5 class="card-text">在下方输入您的QQ号，获取加群验证码：</h5>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">QQ号：</span>
+                        {% if query_qq %}
+                            {{ form.name (class_="form-control",placeholder_="QQ",value=query_qq) }}
+                        {% else %}
+                            {{ form.name (class_="form-control",placeholder_="QQ") }}
+                        {% endif %}
+                    </div>
+                    <div class="text-xs-center">
+                        {{ form.recaptcha }}
+                    </div>
                 </div>
-                <div class="text-xs-center">
-                {{ form.recaptcha }}
-                </div>
-            </div>
                 <button type="submit" class="btn btn-primary">提交</button>
             </div>
         </form>
     {% endif %}
     <div class="card-body">
         <div class="col-md-12 text-center">
-        {% if userinfo %}
-        <a href="/service/qqv/logout" class="btn btn-outline-danger">logout</a>
-        {% else %}
-        <a href="/service/qqv/login" class="btn btn-outline-success">login via CRA SSO / CAS</a>
-        {% endif %}
+            {% if userinfo %}
+                <a href="/service/qqv/logout" class="btn btn-outline-danger">logout</a>
+            {% else %}
+                <a href="/service/qqv/login" class="btn btn-outline-success">login via CAS</a>
+            {% endif %}
         </div>
     </div>
 </div>
